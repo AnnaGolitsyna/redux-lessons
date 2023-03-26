@@ -13,17 +13,14 @@ class App extends React.Component {
     this.setState({
       theme: newTheme,
     });
-
   };
   render() {
     return (
-      <div id="root">
-        <div>
-          <ThemeContext.Provider value={this.state.theme}>
-            <ThemedButton onClick={this.toggleTheme} text="Dynamic Theme" />
-          </ThemeContext.Provider>
-          <ThemedButton onClick={this.toggleTheme} text="Default Theme" />
-        </div>
+      <div>
+        <ThemeContext.Provider value={this.state.theme}>
+          <ThemedButton onClick={this.toggleTheme} text="Dynamic Theme" />
+        </ThemeContext.Provider>
+        <ThemedButton onClick={this.toggleTheme} text="Default Theme" />
       </div>
     );
   }
