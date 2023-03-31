@@ -27,6 +27,7 @@ const store = configureStore({
 });
 
 export default store;
+
 // VAR 1
 
 // import { createStore } from 'redux';
