@@ -10,25 +10,23 @@ const onIncrement = () => {
   store.dispatch(increment());
 };
 
-incrementBtn.addEventListener('click', onIncrement);
-
 const onDecrement = () => {
   store.dispatch(decrement());
 };
-
-decrementBtn.addEventListener('click', onDecrement);
 
 const onReset = () => {
   store.dispatch(reset());
 };
 
+incrementBtn.addEventListener('click', onIncrement);
+decrementBtn.addEventListener('click', onDecrement);
 resetBtn.addEventListener('click', onReset);
 
 store.subscribe(() => {
   const state = store.getState();
-  const curValue = state.history.reduce((acc, val) => acc + val, 0);
-  const historyStr = state.history
+  const currentValue = state.history.reduce((acc, val) => acc + val, 0);
+  const historyString = state.history
     .map((val) => (val > 0 ? `+${val}` : val))
     .join('');
-  resultEl.textContent = curValue === 0 ? '' : `${historyStr} = ${curValue}`;
+  resultEl.textContent = currentValue === 0 ? '' : `${historyString} = ${currentValue}`;
 });
