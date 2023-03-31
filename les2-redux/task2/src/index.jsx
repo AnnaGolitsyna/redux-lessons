@@ -1,5 +1,5 @@
+import store, { increment, decrement, reset } from './store';
 import './index.scss';
-import { increment, decrement, reset, store } from './store';
 
 const resultEl = document.querySelector('.counter__result');
 const incrementBtn = document.querySelector('[data-action="increment"]');
