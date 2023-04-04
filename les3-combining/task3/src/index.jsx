@@ -18,3 +18,4 @@ store.dispatch(removeProduct(2));
 store.dispatch(setUser({name: 'Bob'}));
 store.dispatch(setUser({ name: 'Tom' }));
 store.dispatch(removeUser())
+store.dispatch(setLanguage('jp'));
