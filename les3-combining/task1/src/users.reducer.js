@@ -21,10 +21,10 @@ const usersReduser = (state = initialValue, action) => {
 
     case UPDATE_USER: {
       const updatedList = state.usersList.map((user) => {
-        if (user.id === action.payload.userId.id) {
+        if (user.id === action.payload.userId) {
           return {
             ...user,
-            ...action.payload.userId,
+            ...action.payload.userData,
           };
         }
         return user;

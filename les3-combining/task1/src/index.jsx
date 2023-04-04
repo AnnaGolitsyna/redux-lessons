@@ -12,7 +12,7 @@ store.dispatch(addUser({ id: 53, name: 'Bob' }));
 store.dispatch(addUser({ id: 56, name: 'Tom' }));
 store.dispatch(deleteUser(50));
 store.dispatch(addUser({ id: 66, name: 'Sam' }));
-store.dispatch(updateUser({ id: 66, name: 'Samanta' }));
+store.dispatch(updateUser(66, { name: 'Samanta' }));
 store.dispatch(deleteUser(53));
 store.dispatch(increment());
 store.dispatch(increment());
