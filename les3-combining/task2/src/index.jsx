@@ -1,4 +1,4 @@
-import store  from "./counter";
+import {store}  from "./counter";
 import { increment, decrement } from "./counter";
 
 store.dispatch(increment());
