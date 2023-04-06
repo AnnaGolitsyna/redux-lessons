@@ -1,8 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as usersActions from './users.actions';
 
-const Users = ({ users, addUser, deleteUser }) => {
+const Users = () => {
+  const users = useSelector((state) => state.users.usersList);
+  const dispatch = useDispatch();
 
   const userCreateHandler = () => {
     const id = Math.round(Math.random() * 10 ** 6).toString();
@@ -10,11 +12,11 @@ const Users = ({ users, addUser, deleteUser }) => {
       id,
       name: `User # ${id}`,
     };
-    addUser(newUser);
+    dispatch(usersActions.addUser(newUser));
   };
 
   const userDeleteHandler = (userId) => {
-    deleteUser(userId);
+    dispatch(usersActions.deleteUser(userId));
   };
 
   return (
@@ -39,17 +41,5 @@ const Users = ({ users, addUser, deleteUser }) => {
   );
 };
 
-const mapState = (state) => ({
-  users: state.users.usersList,
-});
 
-const mapDispatch = {
-  addUser: usersActions.addUser,
-  deleteUser: usersActions.deleteUser,
-};
-
-const connector = connect(mapState, mapDispatch);
-
-const ConnectedUsers = connector(Users);
-
-export default ConnectedUsers;
+export default Users;
