@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { itemsPerPage } from './variables.js';
 
-
 const Pagination = ({ currentPage, usersLength, goPrev, goNext }) => {
   const isPrevPageAvailable = currentPage === 1;
   const isNextPageAvailable =
@@ -15,7 +14,7 @@ const Pagination = ({ currentPage, usersLength, goPrev, goNext }) => {
       </button>
       <span className="pagination__page">{currentPage}</span>
       <button className="btn" onClick={goNext} disabled={isNextPageAvailable}>
-        {isNextPageAvailable ? null : '→'}
+        {!isNextPageAvailable && '→'}
       </button>
     </div>
   );
