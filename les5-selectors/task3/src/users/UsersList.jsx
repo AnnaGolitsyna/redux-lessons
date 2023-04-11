@@ -1,30 +1,21 @@
-// store
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import User from './User';
 import Filter from '../Filter';
 import { filteredUsersListAction } from './users.action';
-import {mainSelector} from './users.selectors';
+import {
+  filteredUsersListSelectorSelector,
+  filterTextSelector,
+} from './users.selectors';
 
-const UsersList = () => {
-  // const usersList = useSelector((state) => state.showUsersList.usersList);
-  const usersList = useSelector(mainSelector)
-  const filterText = useSelector((state) => state.showUsersList.filterText);
-  console.log(usersList, filterText);
-
-  const dispatch = useDispatch();
-
-  const onChangeTextInput = (text) => {
-    console.log(text);
-    dispatch(filteredUsersListAction(text))
-  };
+const UsersList = ({ filterText, usersList, handleFilter }) => {
 
   return (
     <>
       <Filter
         filterText={filterText}
         count={usersList.length}
-        onChange={onChangeTextInput}
+        onChange={handleFilter}
       />
       <ul className="users">
         {usersList.map((user) => (
@@ -35,4 +26,15 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+const mapState = (state) => {
+  return {
+    filterText: filterTextSelector(state),
+    usersList: filteredUsersListSelectorSelector(state),
+  };
+};
+
+const mapDispatch = {
+  handleFilter: filteredUsersListAction,
+};
+
+export default connect(mapState, mapDispatch)(UsersList);

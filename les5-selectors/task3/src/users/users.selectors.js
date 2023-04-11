@@ -1,18 +1,18 @@
 import { createSelector } from 'reselect';
 
-const filterTextSelector = (state) => {
+export const filterTextSelector = (state) => {
   return state.showUsersList.filterText;
 };
 
-const usersListSelector = (state) => {
+export const usersListSelector = (state) => {
   return state.showUsersList.usersList;
 };
 
-export const mainSelector = createSelector(
+export const filteredUsersListSelectorSelector = createSelector(
   [filterTextSelector, usersListSelector],
   (filterText, usersList) => {
     return usersList.filter((user) =>
-      user.name.toLowerCase().includes(filterText.toLowerCase())
+      user.name.toLowerCase().includes(filterText)
     );
   }
 );

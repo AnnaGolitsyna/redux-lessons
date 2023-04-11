@@ -6,18 +6,14 @@ const initialState = {
   usersList: users,
 };
 
-
-
 const filteredUsersListReduser = (state = initialState, action) => {
   switch (action.type) {
     case FILTER:
       return {
         ...state,
-        filterText: state.filterText.concat('', action.payload.filterText),
-        usersList: state.usersList.filter((user) =>
-          user.name.toLowerCase().includes(state.filterText.toLowerCase())
-        ),
+        filterText: action.payload.filterText,
       };
+    
     default:
       return state;
   }
