@@ -1,10 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import filteredUsersListReduser from './users/users.reducer';
-// import optionsReducer from './options/options.reducer';
+
 
 const appReducer = combineReducers({
-  showUsersList: filteredUsersListReduser,
-  // optionsData: optionsReducer,
+  users: filteredUsersListReduser,
+  
 });
 
 const store = createStore(
