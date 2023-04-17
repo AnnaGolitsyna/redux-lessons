@@ -17,6 +17,7 @@ export const userDataRecieved = (userData) => {
 
 export const showUserData = (userName) => {
   return function (dispatch) {
+    dispatch(showSpinner());
     fetchUserData(userName).then((userData) => {
       dispatch(userDataRecieved(userData));
     });
