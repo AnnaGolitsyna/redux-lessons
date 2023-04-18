@@ -1,40 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-class CreateTask extends Component {
-  state = {
-    textInput: '',
-  };
-  handleChangeTextInput = (e) => {
-    this.setState({
-      textInput: e.target.value,
-    });
+const CreateTask = ({ onCreate }) => {
+  const [textInput, setTextInput] = useState('');
+
+  const handleChangeTextInput = (e) => {
+    setTextInput(e.target.value);
+
   };
 
-  hendleCreateTask = () => {
-    this.props.onCreate(this.state.textInput);
-    this.setState({ textInput: '' });
+  const hendleCreateTask = () => {
+    onCreate(textInput);
+    setTextInput('');
+    
   };
 
-  render() {
-    return (
-      <div className="create-task">
-        <input
-          className="create-task__input"
-          type="text"
-          value={this.state.textInput}
-          onChange={this.handleChangeTextInput}
-        />
-        <button
-          className="btn create-task__btn"
-          onClick={this.hendleCreateTask}
-        >
-          Create
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="create-task">
+      <input
+        className="create-task__input"
+        type="text"
+        value={textInput}
+        onChange={handleChangeTextInput}
+      />
+      <button className="btn create-task__btn" onClick={hendleCreateTask}>
+        Create
+      </button>
+    </div>
+  );
+};
 
 CreateTask.propTypes = {
   onCreate: PropTypes.func.isRequired,

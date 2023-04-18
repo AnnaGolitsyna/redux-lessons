@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Task from './Task';
 import CreateTask from './CreateTask';
 import {
@@ -8,66 +8,55 @@ import {
   fetchTasks,
 } from '../tasks.gateway';
 
-class TasksList extends Component {
-  state = {
-    tasks: [],
+const TasksList = () => {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    fetchTasksList();
+  }, []);
+
+  const fetchTasksList = () => {
+    fetchTasks().then((tasksList) => setTasks(tasksList));
   };
 
-  componentDidMount() {
-    this.fetchTasksList();
-  }
-
-  fetchTasksList = () => {
-    fetchTasks().then((tasksList) => {
-      this.setState({
-        tasks: tasksList,
-      });
-    });
-  };
-
-  onCreateTask = (text) => {
-       const newTask = {
+  const onCreateTask = (text) => {
+    const newTask = {
       text,
       done: false,
     };
-    fetchCreateTask(newTask).then(() => this.fetchTasksList());
+    fetchCreateTask(newTask).then(() => fetchTasksList());
   };
 
-  onUpdateTask = (id) => {
-
-    const { done, text } = this.state.tasks.find((task) => task.id === id);
+  const onUpdateTask = (id) => {
+    const { done, text } = tasks.find((task) => task.id === id);
     const updatedTask = {
       text,
       done: !done,
     };
-
-    fetchUpdateTask(updatedTask, id).then(() => this.fetchTasksList());
+    fetchUpdateTask(updatedTask, id).then(() => fetchTasksList());
   };
 
-  onDeleteTask = (id) => {
-
-    fetchDeleteTask(id).then(() => this.fetchTasksList());
+  const onDeleteTask = (id) => {
+    fetchDeleteTask(id).then(() => fetchTasksList());
   };
 
-  render() {
-    const sortedList = [...this.state.tasks].sort((a, b) => a.done - b.done);
+  const sortedList = [...tasks].sort((a, b) => a.done - b.done);
 
-    return (
-      <main className="todo-list">
-        <CreateTask onCreate={this.onCreateTask} />
-        <ul className="list">
-          {sortedList.map((task) => (
-            <Task
-              key={task.id}
-              {...task}
-              onChange={this.onUpdateTask}
-              onDelete={this.onDeleteTask}
-            />
-          ))}
-        </ul>
-      </main>
-    );
-  }
-}
+  return (
+    <main className="todo-list">
+      <CreateTask onCreate={onCreateTask} />
+      <ul className="list">
+        {sortedList.map((task) => (
+          <Task
+            key={task.id}
+            {...task}
+            onChange={onUpdateTask}
+            onDelete={onDeleteTask}
+          />
+        ))}
+      </ul>
+    </main>
+  );
+};
 
 export default TasksList;
