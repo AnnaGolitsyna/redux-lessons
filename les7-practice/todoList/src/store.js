@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import tasksReducer from './tasks/tasks.reducer';
 
 const storMiddleware = (store) => (next) => (action) => {
   console.group(action.type);
@@ -11,7 +12,7 @@ const storMiddleware = (store) => (next) => (action) => {
 };
 
 const appReducer = combineReducers({
-  //weatherData: weatherReducer,
+  tasksData: tasksReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

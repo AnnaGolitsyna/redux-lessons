@@ -6,13 +6,11 @@ const CreateTask = ({ onCreate }) => {
 
   const handleChangeTextInput = (e) => {
     setTextInput(e.target.value);
-
   };
 
   const hendleCreateTask = () => {
     onCreate(textInput);
     setTextInput('');
-    
   };
 
   return (

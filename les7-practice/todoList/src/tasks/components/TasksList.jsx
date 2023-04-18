@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Task from './Task';
 import CreateTask from './CreateTask';
+import { taskDataSelector } from '../tasks.selector';
+import { getTasksList } from '../tasks.actions';
 import {
   fetchCreateTask,
   fetchUpdateTask,
@@ -9,10 +12,14 @@ import {
 } from '../tasks.gateway';
 
 const TasksList = () => {
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
+
+  const tasks = useSelector((state) => taskDataSelector(state));
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchTasksList();
+    // fetchTasksList();
+    dispatch(getTasksList(tasks));
   }, []);
 
   const fetchTasksList = () => {
