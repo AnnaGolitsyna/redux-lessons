@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Task from './Task';
 import CreateTask from './CreateTask';
-import { taskDataSelector } from '../tasks.selector';
-import { getTasksList } from '../tasks.actions';
+import { sortedTasksList } from '../tasks.selector';
+import { getTasksList, deletedTask } from '../tasks.actions';
 import {
   fetchCreateTask,
   fetchUpdateTask,
@@ -14,7 +14,7 @@ import {
 const TasksList = () => {
   // const [tasks, setTasks] = useState([]);
 
-  const tasks = useSelector((state) => taskDataSelector(state));
+  const tasks = useSelector((state) => sortedTasksList(state));
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,9 +22,9 @@ const TasksList = () => {
     dispatch(getTasksList(tasks));
   }, []);
 
-  const fetchTasksList = () => {
-    fetchTasks().then((tasksList) => setTasks(tasksList));
-  };
+  // const fetchTasksList = () => {
+  //   fetchTasks().then((tasksList) => setTasks(tasksList));
+  // };
 
   const onCreateTask = (text) => {
     const newTask = {
@@ -43,22 +43,21 @@ const TasksList = () => {
     fetchUpdateTask(updatedTask, id).then(() => fetchTasksList());
   };
 
-  const onDeleteTask = (id) => {
-    fetchDeleteTask(id).then(() => fetchTasksList());
-  };
+  // const onDeleteTask = (id) => {
+  //   fetchDeleteTask(id).then(() => fetchTasksList());
+  // };
 
-  const sortedList = [...tasks].sort((a, b) => a.done - b.done);
 
   return (
     <main className="todo-list">
       <CreateTask onCreate={onCreateTask} />
       <ul className="list">
-        {sortedList.map((task) => (
+        {tasks.map((task) => (
           <Task
             key={task.id}
             {...task}
             onChange={onUpdateTask}
-            onDelete={onDeleteTask}
+            onDelete={() => dispatch(deletedTask(task.id))}
           />
         ))}
       </ul>
