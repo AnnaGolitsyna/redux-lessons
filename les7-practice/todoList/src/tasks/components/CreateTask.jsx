@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { createdTask } from '../tasks.actions';
+import { useDispatch } from 'react-redux';
 
-const CreateTask = ({ onCreate }) => {
+const CreateTask = () => {
+  const dispatch = useDispatch();
   const [textInput, setTextInput] = useState('');
 
   const handleChangeTextInput = (e) => {
@@ -9,7 +11,8 @@ const CreateTask = ({ onCreate }) => {
   };
 
   const hendleCreateTask = () => {
-    onCreate(textInput);
+    dispatch(createdTask(textInput));
+    // onCreate(textInput);
     setTextInput('');
   };
 
@@ -26,10 +29,6 @@ const CreateTask = ({ onCreate }) => {
       </button>
     </div>
   );
-};
-
-CreateTask.propTypes = {
-  onCreate: PropTypes.func.isRequired,
 };
 
 export default CreateTask;
