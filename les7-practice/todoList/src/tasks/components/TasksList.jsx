@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Task from './Task';
-import CreateTask from './CreateTask';
 import { sortedTasksList } from '../tasks.selector';
 import { getTasksList, deletedTask, updatedTask } from '../tasks.actions';
 
@@ -14,19 +13,16 @@ const TasksList = () => {
   }, []);
 
   return (
-    <main className="todo-list">
-      <CreateTask />
-      <ul className="list">
-        {tasks.map((task) => (
-          <Task
-            key={task.id}
-            {...task}
-            onChange={() => dispatch(updatedTask(task.id))}
-            onDelete={() => dispatch(deletedTask(task.id))}
-          />
-        ))}
-      </ul>
-    </main>
+    <ul className="list">
+      {tasks.map((task) => (
+        <Task
+          key={task.id}
+          {...task}
+          onChange={() => dispatch(updatedTask(task.id))}
+          onDelete={() => dispatch(deletedTask(task.id))}
+        />
+      ))}
+    </ul>
   );
 };
 

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { createdTask } from '../tasks.actions';
 import { useDispatch } from 'react-redux';
+import { createdTask } from '../tasks.actions';
 
 const CreateTask = () => {
   const dispatch = useDispatch();
+
   const [textInput, setTextInput] = useState('');
 
   const handleChangeTextInput = (e) => {
@@ -12,7 +13,6 @@ const CreateTask = () => {
 
   const hendleCreateTask = () => {
     dispatch(createdTask(textInput));
-    // onCreate(textInput);
     setTextInput('');
   };
 

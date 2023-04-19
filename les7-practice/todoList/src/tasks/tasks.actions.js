@@ -37,7 +37,7 @@ export const updatedTask = (taskId) => {
     const updatedTask = {
       text,
       done: !done,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().getTime(),
     };
     fetchUpdateTask(updatedTask, taskId).then(() => dispatch(getTasksList()));
   };
@@ -48,7 +48,7 @@ export const createdTask = (text) => {
     const newTask = {
       text,
       done: false,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().getTime(),
     };
     fetchCreateTask(newTask).then(() => dispatch(getTasksList()));
   };
